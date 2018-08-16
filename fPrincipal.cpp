@@ -25,6 +25,6 @@ void TfrmPrincipal::ListarPortas() {
 
 	registro->RootKey = HKEY_LOCAL_MACHINE;
 	registro->OpenKey("HARDWARE\\DEVICEMAP\\SERIALCOMM", false);
-
+	registro->GetValueNames(lista);
 };
 // ---------------------------------------------------------------------------
