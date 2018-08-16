@@ -26,5 +26,18 @@ void TfrmPrincipal::ListarPortas() {
 	registro->RootKey = HKEY_LOCAL_MACHINE;
 	registro->OpenKey("HARDWARE\\DEVICEMAP\\SERIALCOMM", false);
 	registro->GetValueNames(lista);
+	cmbPorta->Items->Clear();
+
+	for (int i = 0; i <lista->Count - 1; i++) {
+        cmbPorta->Items->Add(registro->ReadString(lista->Strings[i]));
+	}
+
+	if (cmbPorta->Items->Count > 0) {
+		cmbPorta->ItemIndex = 0;
+	}
+
+	registro->CloseKey();
+
+    delete(registro, lista);
 };
 // ---------------------------------------------------------------------------
