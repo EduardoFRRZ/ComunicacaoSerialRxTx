@@ -1,6 +1,7 @@
 Win32/
 __astcache/
 __history/
+__recovery/
 uart_cpp.cbproj.local
 uart_cpp.res
 

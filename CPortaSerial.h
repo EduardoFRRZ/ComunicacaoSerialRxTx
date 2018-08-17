@@ -4,14 +4,14 @@
 #define CPortaSerialH
 
 #include<windows.h>
-//#include<Classes.h>
+#include<Classes.hpp>
 
 // ---------------------------------------------------------------------------
 class CPortaSerial {
 
 private:
 	HANDLE hPorta;
-	bool abertura;
+	bool aberta;
 	COMMTIMEOUTS commTimeouts;
 
 	bool _fastcall GetAberta();
@@ -24,11 +24,11 @@ public:
 	DCB config;
 
 	unsigned char _fastcall ReceberByte();
-	bool _fastcall TransmitirByte();
+	bool _fastcall TransmitirByte(unsigned char dado);
 	bool _fastcall LerConfigPorta();
 	bool _fastcall SetConfigPorta();
 
-	__property bool xAberta = (read = GetAberta);
+	//__property bool xAberta = (read = GetAberta);
 
 };
 
