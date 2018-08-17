@@ -28,7 +28,7 @@ public:
 	bool _fastcall LerConfigPorta();
 	bool _fastcall SetConfigPorta();
 
-	//__property bool xAberta = (read = GetAberta);
+	// __property bool xAberta = (read = GetAberta);
 
 };
 

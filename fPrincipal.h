@@ -51,19 +51,19 @@ __published: // IDE-managed Components
 	// void __fastcall FormShow(TObject *Sender);
 private: // User declarations
 
-	// CPortaSerial *objPorta;
+	CPortaSerial *objPorta;
 
-	// AnsiString porta;
-	// AnsiString inByte;
-	// unsigned char byteRec;
-	// unsigned char outByte[10];
-	// double mv, temp;
+	AnsiString porta;
+	AnsiString inByte;
+	unsigned char byteRec;
+	unsigned char outByte[10];
+	double mv, temp;
 
 public: // User declarations
 	__fastcall TfrmPrincipal(TComponent* Owner);
 
 	void ListarPortas(); /* listar portas COM do sistema */
-	// bool ConfigurarPorta(); /* definir configurações de operacao */
+	bool ConfigurarPorta(); /* definir configurações de operacao */
 };
 
 // ---------------------------------------------------------------------------

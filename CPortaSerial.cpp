@@ -33,27 +33,26 @@ unsigned char _fastcall CPortaSerial::ReceberByte() {
 
 bool _fastcall CPortaSerial::TransmitirByte(unsigned char dado) {
 
-    DWORD nBytesWrite;
-    
-    return WriteFile(hPorta, &dado, 1, &nBytesWrite, NULL);
+	DWORD nBytesWrite;
+
+	return WriteFile(hPorta, &dado, 1, &nBytesWrite, NULL);
 };
 
-
-bool _fastcall CPortaSerial::GetAberta(){
-    return aberta;
+bool _fastcall CPortaSerial::GetAberta() {
+	return aberta;
 };
 
-HANDLE _fastcall CPortaSerial::getHandle(){
-    return hPorta;
+HANDLE _fastcall CPortaSerial::getHandle() {
+	return hPorta;
 };
 
-bool _fastcall CPortaSerial::LerConfigPorta(){
-    return GetCommState(hPorta, &config);
+bool _fastcall CPortaSerial::LerConfigPorta() {
+	return GetCommState(hPorta, &config);
 };
 
-bool _fastcall CPortaSerial::SetConfigPorta(){
-    if(!SetCommState(hPorta, &config))
-        return false;
-    
-    return true;
+bool _fastcall CPortaSerial::SetConfigPorta() {
+	if (!SetCommState(hPorta, &config))
+		return false;
+
+	return true;
 };
