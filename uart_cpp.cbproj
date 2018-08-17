@@ -128,6 +128,10 @@
         <BCC_PCHName_Clang>uart_cppPCH1.h</BCC_PCHName_Clang>
     </PropertyGroup>
     <ItemGroup>
+        <CppCompile Include="CPortaSerial.cpp">
+            <DependentOn>CPortaSerial.h</DependentOn>
+            <BuildOrder>3</BuildOrder>
+        </CppCompile>
         <CppCompile Include="fPrincipal.cpp">
             <Form>frmPrincipal</Form>
             <FormType>dfm</FormType>

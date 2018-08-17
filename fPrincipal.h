@@ -10,7 +10,7 @@
 
 #include <registry.hpp> /* TRegistry para acessar o regedit */
 
-// #include "CPortaSerial.h"
+#include "CPortaSerial.h"
 #include <Vcl.ComCtrls.hpp>
 
 // ---------------------------------------------------------------------------

@@ -28,8 +28,8 @@ void TfrmPrincipal::ListarPortas() {
 	registro->GetValueNames(lista);
 	cmbPorta->Items->Clear();
 
-	for (int i = 0; i <lista->Count - 1; i++) {
-        cmbPorta->Items->Add(registro->ReadString(lista->Strings[i]));
+	for (int i = 0; i < lista->Count - 1; i++) {
+		cmbPorta->Items->Add(registro->ReadString(lista->Strings[i]));
 	}
 
 	if (cmbPorta->Items->Count > 0) {
@@ -38,6 +38,6 @@ void TfrmPrincipal::ListarPortas() {
 
 	registro->CloseKey();
 
-    delete(registro, lista);
+	delete(registro, lista);
 };
 // ---------------------------------------------------------------------------
