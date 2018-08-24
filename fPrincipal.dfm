@@ -171,6 +171,7 @@ object frmPrincipal: TfrmPrincipal
     Height = 25
     Caption = 'Limpar RX'
     TabOrder = 2
+    OnClick = btnLimparRxClick
   end
   object btnListarPortas: TButton
     Left = 336
@@ -195,6 +196,7 @@ object frmPrincipal: TfrmPrincipal
     Height = 25
     Caption = 'Enviar'
     TabOrder = 5
+    OnClick = btnEnviarClick
   end
   object btnAbrirPorta: TButton
     Left = 484
@@ -203,6 +205,7 @@ object frmPrincipal: TfrmPrincipal
     Height = 25
     Caption = 'Abrir porta'
     TabOrder = 6
+    OnClick = btnAbrirPortaClick
   end
   object btnFecharPorta: TButton
     Left = 484
@@ -211,6 +214,7 @@ object frmPrincipal: TfrmPrincipal
     Height = 25
     Caption = 'Fechar porta'
     TabOrder = 7
+    OnClick = btnFecharPortaClick
   end
   object thread: TIdThreadComponent
     Active = False
@@ -218,6 +222,7 @@ object frmPrincipal: TfrmPrincipal
     Priority = tpHigher
     StopMode = smTerminate
     ThreadName = 'ctp_serial'
+    OnRun = threadRun
     Left = 352
     Top = 40
   end

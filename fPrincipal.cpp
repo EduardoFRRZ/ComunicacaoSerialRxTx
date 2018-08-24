@@ -28,7 +28,7 @@ void TfrmPrincipal::ListarPortas() {
 	registro->GetValueNames(lista);
 	cmbPorta->Items->Clear();
 
-	for (int i = 0; i < lista->Count - 1; i++) {
+	for (int i = 0; i < lista->Count; i++) {
 		cmbPorta->Items->Add(registro->ReadString(lista->Strings[i]));
 	}
 
@@ -54,8 +54,8 @@ bool TfrmPrincipal::ConfigurarPorta()
     57600
     115200
     128000
-    */
-    switch(cmbVelocidade->ItemIndex)
+	*/
+	switch(cmbVelocidade->ItemIndex)
     {
        case 0: objPorta->config.BaudRate = CBR_4800; break;
        case 1: objPorta->config.BaudRate = CBR_9600; break;
@@ -104,7 +104,7 @@ bool TfrmPrincipal::ConfigurarPorta()
          default: break;
          }
 
-     return objPorta->SetarConfigPorta();
+     return objPorta->SetConfigPorta();
 
   }
 
@@ -116,3 +116,95 @@ bool TfrmPrincipal::ConfigurarPorta()
 
 }
 // ---------------------------------------------------------------------------
+
+
+
+void __fastcall TfrmPrincipal::btnAbrirPortaClick(TObject *Sender)
+{
+	porta = cmbPorta->Text; // Pega endereço da porta COM selecionada
+
+	objPorta = new CPortaSerial(porta.c_str());
+
+	if(objPorta->xAberta){ // Se conseguiu abrir a porta
+
+		if(ConfigurarPorta()){ // Configurar velocidade etc...
+
+			// Definir estado da interface gráfica
+			btnAbrirPorta->Enabled = false;
+			btnFecharPorta->Enabled = true;
+			lblStatus->Caption = "Conectado";
+			lblStatus->Font->Color = clGreen;
+			lblStatus->Alignment = taCenter;
+			thread->Active = true; // Habilitar leitura da porta
+		}
+		else{
+			ShowMessage("Não foi possivel configurar a porta");
+			delete(objPorta);
+		}
+		edtTx->SetFocus();
+	}
+	else{
+		ShowMessage("Não foi possivel abrir a porta selecionada");
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnFecharPortaClick(TObject *Sender)
+{
+	thread->Active = false;
+	delete(objPorta);
+
+	// Questão visual da interface
+	btnFecharPorta->Enabled = false;
+	btnAbrirPorta->Enabled = true;
+	lblStatus->Caption = "Desconectado";
+	lblStatus->Font->Color = clRed;
+	lblStatus->Alignment = taCenter;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TfrmPrincipal::threadRun(TIdThreadComponent *Sender)
+{
+  if(mmoRx->Lines->Count > 5000) // Controle de impressão do form
+	mmoRx->Clear();
+
+	byteRec = objPorta->ReceberByte();
+	inByte = byteRec; // Facilitar comparação tratamento
+
+	if(inByte.Length() >= 1 && inByte != "0")
+		mmoRx->Lines->Add(inByte);
+
+		Sleep(200);
+
+        //CONTINUA
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnEnviarClick(TObject *Sender)
+{
+    strcpy(outByte,AnsiString(edtTx->Text).c_str());
+
+    if(btnAbrirPorta->Enabled == false)
+    {
+        thread->Active = false;
+
+        objPorta->TransmitirByte(outByte[0]);
+
+
+        mmoRx->Lines->Add("<" + edtTx->Text.SubString(0,1) + ">");
+
+        /* adicionar caracter enviado */
+       //    mmoRx->Text = mmoRx->Text + "<" + edtTx->Text.SubString(0,1) + ">";
+
+        thread->Active = true;
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmPrincipal::btnLimparRxClick(TObject *Sender)
+{
+    mmoRx->Clear();
+}
+//---------------------------------------------------------------------------
+

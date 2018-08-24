@@ -12,8 +12,26 @@ CPortaSerial::CPortaSerial(char *porta) {
 
 	if (hPorta == INVALID_HANDLE_VALUE)
 		aberta = false;
-	else
-		aberta = true;
+	else{
+		if(GetCommTimeouts(hPorta, &commTimeouts) == 0)
+			aberta = true;
+
+		else{
+
+			commTimeouts.ReadIntervalTimeout = 10;
+			commTimeouts.ReadTotalTimeoutMultiplier = 5;
+			commTimeouts.ReadTotalTimeoutConstant = 100;
+
+			commTimeouts.WriteTotalTimeoutMultiplier = 5;
+			commTimeouts.WriteTotalTimeoutConstant = 100;
+
+		}
+
+		if(SetCommTimeouts(hPorta, &commTimeouts) == 0)
+		  aberta = false;
+
+		else aberta = true;
+	}
 }
 
 CPortaSerial::~CPortaSerial() {
@@ -29,30 +47,30 @@ unsigned char _fastcall CPortaSerial::ReceberByte() {
 	ReadFile(hPorta, &byte, 1, &nBytesRead, NULL);
 
 	return byte;
-};
+}
 
 bool _fastcall CPortaSerial::TransmitirByte(unsigned char dado) {
 
 	DWORD nBytesWrite;
 
 	return WriteFile(hPorta, &dado, 1, &nBytesWrite, NULL);
-};
+}
 
 bool _fastcall CPortaSerial::GetAberta() {
 	return aberta;
-};
+}
 
 HANDLE _fastcall CPortaSerial::getHandle() {
 	return hPorta;
-};
+}
 
 bool _fastcall CPortaSerial::LerConfigPorta() {
 	return GetCommState(hPorta, &config);
-};
+}
 
 bool _fastcall CPortaSerial::SetConfigPorta() {
 	if (!SetCommState(hPorta, &config))
 		return false;
 
 	return true;
-};
+}

@@ -40,6 +40,11 @@ __published: // IDE-managed Components
 	TIdThreadComponent *thread;
 
 	void __fastcall btnListarPortasClick(TObject *Sender);
+	void __fastcall btnAbrirPortaClick(TObject *Sender);
+	void __fastcall btnFecharPortaClick(TObject *Sender);
+	void __fastcall threadRun(TIdThreadComponent *Sender);
+	void __fastcall btnEnviarClick(TObject *Sender);
+	void __fastcall btnLimparRxClick(TObject *Sender);
 
 	// void __fastcall btnListarPortasClick(TObject *Sender);
 	// void __fastcall btnAbrirPortaClick(TObject *Sender);
@@ -52,7 +57,7 @@ __published: // IDE-managed Components
 private: // User declarations
 
 	CPortaSerial *objPorta;
-
+	String teste;
 	AnsiString porta;
 	AnsiString inByte;
 	unsigned char byteRec;
